@@ -7,7 +7,7 @@ import ru.job4j.forum.repository.Store;
 
 import java.util.List;
 
-@Service
+//@Service
 public class TopicService implements ru.job4j.forum.service.Service {
 
     private final Store store;

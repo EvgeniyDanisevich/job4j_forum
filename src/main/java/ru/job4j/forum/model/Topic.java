@@ -1,22 +1,26 @@
 package ru.job4j.forum.model;
 
+import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+@Entity
+@Table(name = "topic")
 public class Topic {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String description;
-    private Calendar created;
-    private List<Post> posts;
+    private Calendar created = Calendar.getInstance();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "topic")
+    private List<Post> posts = new ArrayList<>();
 
     public static Topic of(int id, String name, String description) {
         Topic topic = new Topic();
         topic.id = id;
         topic.name = name;
         topic.description = description;
-        topic.created = Calendar.getInstance();
-        topic.posts = new ArrayList<>();
         return topic;
     }
 

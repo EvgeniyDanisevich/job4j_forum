@@ -1,21 +1,25 @@
 package ru.job4j.forum.model;
 
+import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.Objects;
 
+@Entity
+@Table(name = "post")
 public class Post {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String text;
-    private Calendar created;
+    private Calendar created = Calendar.getInstance();
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Topic topic;
 
     public static Post of(int id, String text) {
         Post post = new Post();
         post.id = id;
         post.text = text;
-        post.created = new GregorianCalendar();
         return post;
     }
 
